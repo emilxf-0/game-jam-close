@@ -65,43 +65,45 @@ public class PlayerController : MonoBehaviour
     private void Dodge()
     {
         
-        if (Input.GetButtonDown("Jump") && movementInput.x > 0)
-        {
-            transform.Translate(dodgeSpeed, 0, 0);
-        }
-        
-        if (Input.GetButtonDown("Jump") && movementInput.x < 0)
-        {
-            transform.Translate(-dodgeSpeed, 0, 0);
-        }
-        
-        if (Input.GetButtonDown("Jump") && movementInput.y > 0)
-        {
-            transform.Translate(0, dodgeSpeed, 0);
-        }
-        
-        if (Input.GetButtonDown("Jump") && movementInput.y < 0)
-        {
-            transform.Translate(0, -dodgeSpeed, 0);
-        }
-
-        // // if (Input.GetButtonDown("Jump"))
+        // if (Input.GetButtonDown("Jump") && movementInput.x > 0)
         // {
-        //     isDodging = true;
-        //     playerSpeed += dodgeSpeed;
+        //     transform.Translate(dodgeSpeed, 0, 0);
         // }
         //
-        // if (isDodging)
+        // if (Input.GetButtonDown("Jump") && movementInput.x < 0)
         // {
-        //     dodgeTime += Time.deltaTime;
+        //     transform.Translate(-dodgeSpeed, 0, 0);
         // }
         //
-        // if (Input.GetButtonUp("Jump") || dodgeTime > 0.2f)
+        // if (Input.GetButtonDown("Jump") && movementInput.y > 0)
         // {
-        //     isDodging = false;
-        //     dodgeTime = 0;
-        //     playerSpeed = startSpeed;
+        //     transform.Translate(0, dodgeSpeed, 0);
         // }
+        //
+        // if (Input.GetButtonDown("Jump") && movementInput.y < 0)
+        // {
+        //     transform.Translate(0, -dodgeSpeed, 0);
+        // }
+        
+        // TODO check out lerp or movetowards for this instead of messing with speed
+        
+        if (Input.GetButtonDown("Jump"))
+        {
+            isDodging = true;
+            playerSpeed += dodgeSpeed;
+        }
+        
+        if (isDodging)
+        {
+            dodgeTime += Time.deltaTime;
+        }
+        
+        if (Input.GetButtonUp("Jump") || dodgeTime > 0.2f)
+        {
+            isDodging = false;
+            dodgeTime = 0;
+            playerSpeed = startSpeed;
+        }
     }
     
     
