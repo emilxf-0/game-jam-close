@@ -65,20 +65,11 @@ public class PlayerController : MonoBehaviour
 
         if (wobbleRight)
         {
-            // Vector3 mov = new Vector3 (transform.position.x, Mathf.Sin(1 * Time.time) * 1, transform.position.z);
-            // transform.position = mov;
-            // bob = new Vector3(transform.position.x, Mathf.Sin(-25) * 1f, transform.position.z);
-            // transform.position = bob;
-            //transform.Translate(0, Mathf.Sin(Time.deltaTime), -7);
             transform.eulerAngles = new Vector3(0, 0, -7 * 0.5f);
             counter++;
         }
         else
         {
-            // bob = new Vector3(transform.position.x, Mathf.Sin(25) * 1f, transform.position.z);
-            // transform.position = bob;
-
-            //transform.Translate(0, Mathf.Sin(Time.deltaTime), 7);
             transform.eulerAngles = new Vector3(0, 0, 7 * 0.5f);
             counter++;
         }
@@ -109,7 +100,6 @@ public class PlayerController : MonoBehaviour
         if (isDodging)
         {
             dodgeTime += Time.deltaTime;
-            //rb2d.position = Vector2.Lerp(rb2d.position, new Vector2(Input.GetAxis("Horizontal") * dodgeLength, 0), dodgeSpeed);
         }
 
         if (Input.GetButtonUp("Jump") || dodgeTime > 0.2f)
@@ -135,7 +125,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Projectile"))
+        if (collision.gameObject.CompareTag("Projectile") && !isDodging)
         {
             health--;
             healthManager.UpdateHealth(health);
