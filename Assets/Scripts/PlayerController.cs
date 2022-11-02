@@ -38,10 +38,6 @@ public class PlayerController : MonoBehaviour
     {
         Dodge();
         Move();
-<<<<<<< HEAD
-=======
-
->>>>>>> 6460c56bf04f096bda4c67ea54750a0137d16c9a
     }
 
     private void Move()
