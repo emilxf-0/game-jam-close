@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    
     private Rigidbody2D rb2d;
     private Transform target;
 
