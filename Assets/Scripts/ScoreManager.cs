@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText.text = "Score " + 0;
+        scoreText.text = "Score: " + 0;
     }
 
     public void UpdateScore(int playerScore)

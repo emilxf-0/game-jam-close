@@ -20,8 +20,8 @@ public class Projectile : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         target = GameObject.Find("Player").transform;
 
-        transform.up = target.transform.position - transform.position;
-        aimDirection = transform.up + new Vector3(Random.Range(-maxSpread, maxSpread), 0, 0);
+        transform.up = target.transform.position - transform.position + new Vector3(Random.Range(-maxSpread, maxSpread), 0, 0);
+        aimDirection = transform.up;
         rb2d.velocity = aimDirection * projectileSpeed; //move towards player
 
         Destroy(gameObject, 5);
