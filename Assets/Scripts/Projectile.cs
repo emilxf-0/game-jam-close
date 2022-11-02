@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    
+    [SerializeField] Sprite[] spriteArray;
     private Rigidbody2D rb2d;
     private Transform target;
 
