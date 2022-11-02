@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
     private Vector2 aimDirection;
     public float projectileSpeed = 9f;
     private float maxSpread = 6f;
+    private float rotateSpeed;
 
 
     void Start()
@@ -20,14 +21,18 @@ public class Projectile : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         target = GameObject.Find("Player").transform;
 
+        rotateSpeed = Random.Range(300, 500);
+
         transform.up = target.transform.position - transform.position + new Vector3(Random.Range(-maxSpread, maxSpread), 0, 0);
         aimDirection = transform.up;
         rb2d.velocity = aimDirection * projectileSpeed; //move towards player
 
         Destroy(gameObject, 5);
     }
-    private void Update()
+    private void FixedUpdate()
     {
+        transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+
         //rb2d.velocity += new Vector2(target.transform.position.x, rb2d.velocity.y) * Time.deltaTime;
     }
     private void OnCollisionEnter2D(Collision2D collision)
