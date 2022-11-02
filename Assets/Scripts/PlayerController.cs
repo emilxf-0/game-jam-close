@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float playerSpeed;
-    public float startSpeed = 2;
+    public float startSpeed = 8;
     public float dodgeTime;
-    public float dodgeSpeed = 10;
+    public float dodgeSpeed = 15;
     public float dodgeLength = 3;
     public float angle = 7;
 
@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     {
         Dodge();
         Move();
-        
     }
 
     private void Move()

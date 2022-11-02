@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb33993b3914d154580a1bd559a4eacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 2476286739081212659, guid: c764076ddfc26a64791ca4371978ff43, type: 3}
+  projectile: {fileID: 119121469741861485, guid: 9ee64fe165379af459b1e92931696021, type: 3}
 --- !u!1 &1203314082
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +440,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.026670195, g: 0.2924528, b: 0.109025344, a: 0}
+  m_BackGroundColor: {r: 0.12922747, g: 0.16981131, b: 0.14185356, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
