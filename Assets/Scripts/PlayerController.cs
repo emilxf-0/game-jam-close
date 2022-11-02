@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private int health = 3;
     private int score;
 
-    private ScoreManager scoreManager;
+    [SerializeField] ScoreManager scoreManager;
 
     private bool isDodging;
     private bool justTeleported;
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         playerSpeed = startSpeed;
-        scoreManager = GameObject.Find("Canvas").GetComponent<ScoreManager>();
+        //scoreManager = GameObject.Find("Canvas").GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
