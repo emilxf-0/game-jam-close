@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private int health = 6;
     private int score;
 
+
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] HealthManager healthManager;
 
@@ -28,14 +29,15 @@ public class PlayerController : MonoBehaviour
     private Vector3 bob;
 
     private Rigidbody2D rb2d;
+    private Animator animator;
     private Vector2 movementInput;
 
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         playerSpeed = startSpeed;
-        //scoreManager = GameObject.Find("Canvas").GetComponent<ScoreManager>();
     }
 
     void Update()
@@ -91,6 +93,15 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
+            if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                animator.SetTrigger("isDodgingLeft");
+            }
+            else
+            {
+                animator.SetTrigger("isDodgingRight");
+            }
+            
             isDodging = true;
             playerSpeed += dodgeSpeed;
         }
