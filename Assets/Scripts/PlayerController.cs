@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameOverScript gameOverScript;
+    [SerializeField] private SceneHandler sceneHandler;
+
     public float playerSpeed;
     public float startSpeed = 2;
     public float dodgeTime;
     public float dodgeSpeed = 10;
     public float dodgeLength = 3;
     public float angle = 7;
+    private int health = 3;
 
     private bool isDodging;
     private bool justTeleported;
@@ -17,11 +21,11 @@ public class PlayerController : MonoBehaviour
     private float counter;
 
     private Vector3 bob;
-    
+
     private Rigidbody2D rb2d;
     private Vector2 movementInput;
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         Dodge();
         Move();
-        
+
     }
 
     private void Move()
@@ -53,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovementAnimation()
     {
-        
+
         if (wobbleRight)
         {
             // Vector3 mov = new Vector3 (transform.position.x, Mathf.Sin(1 * Time.time) * 1, transform.position.z);
@@ -78,13 +82,13 @@ public class PlayerController : MonoBehaviour
         {
             wobbleRight = !wobbleRight;
         }
-        
+
 
     }
 
     private void Dodge()
     {
-        
+
         // if (Input.GetButtonDown("Jump") && movementInput.x > 0)
         // {
         //     transform.Translate(dodgeLength, 1, 0);
@@ -129,13 +133,13 @@ public class PlayerController : MonoBehaviour
             isDodging = true;
             playerSpeed += dodgeSpeed;
         }
-        
+
         if (isDodging)
         {
             dodgeTime += Time.deltaTime;
             //rb2d.position = Vector2.Lerp(rb2d.position, new Vector2(Input.GetAxis("Horizontal") * dodgeLength, 0), dodgeSpeed);
         }
-        
+
         if (Input.GetButtonUp("Jump") || dodgeTime > 0.2f)
         {
             isDodging = false;
@@ -143,6 +147,17 @@ public class PlayerController : MonoBehaviour
             playerSpeed = startSpeed;
         }
     }
-    
-    
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        health--;
+        if (health <= 0)
+        {
+            gameOverScript.GameOver();
+            sceneHandler.GameOver();
+        }
+
+    }
+
+
 }
