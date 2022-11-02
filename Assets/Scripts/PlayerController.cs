@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public float dodgeLength = 3;
     public float angle = 7;
     private int health = 3;
+    private int score;
+
+    private ScoreManager scoreManager;
 
     private bool isDodging;
     private bool justTeleported;
@@ -31,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         playerSpeed = startSpeed;
+        scoreManager = GameObject.Find("Canvas").GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -81,8 +86,6 @@ public class PlayerController : MonoBehaviour
         {
             wobbleRight = !wobbleRight;
         }
-
-
     }
 
     private void Dodge()
@@ -124,8 +127,7 @@ public class PlayerController : MonoBehaviour
         //     justTeleported = false;
         //     rb2d.gravityScale = 0;
         // }
-
-        // TODO check out lerp or movetowards for this instead of messing with speed
+        
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -146,11 +148,26 @@ public class PlayerController : MonoBehaviour
             playerSpeed = startSpeed;
         }
     }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Bullseye"))
+        {
+            AddScore(10);
+        }
+
+        if (other.CompareTag("Bullseye") && isDodging)
+        {
+            AddScore(100);
+        }
+    }
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Projectile"))
         {
             health--;
+            
             if (health <= 0)
             {
                 if (SceneManager.GetActiveScene().name == "SampleScene")
@@ -158,10 +175,15 @@ public class PlayerController : MonoBehaviour
                     gameOverScript.GameOver();
                     sceneHandler.GameOver();
                 }
-
             }
         }
 
+    }
+
+    void AddScore(int points)
+    {
+        score += points;
+        scoreManager.UpdateScore(score);
     }
 
 
