@@ -875,6 +875,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 119121469741861485, guid: d2544a4388e143e47bae3bee4ea3babe, type: 3}
   animator: {fileID: 578082108}
+  slipperSpread: 0
+  slipperAmount: 0
   speed: 5
 --- !u!212 &578082112
 SpriteRenderer:
@@ -1135,7 +1137,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.7066667, y: 1.7066667}
+    oldSize: {x: 1.8618182, y: 1.8618182}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
