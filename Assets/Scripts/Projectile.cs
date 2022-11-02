@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
 
     private Vector2 aimDirection;
     public float projectileSpeed = 9f;
-    public float maxSpread = 0.5f;
+    private float maxSpread = 6f;
 
 
     void Start()

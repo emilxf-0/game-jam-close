@@ -14,10 +14,11 @@ public class PlayerController : MonoBehaviour
     public float dodgeSpeed = 15;
     public float dodgeLength = 3;
     public float angle = 7;
-    private int health = 3;
+    private int health = 6;
     private int score;
 
     [SerializeField] ScoreManager scoreManager;
+    [SerializeField] HealthManager healthManager;
 
     private bool isDodging;
     private bool justTeleported;
@@ -30,7 +31,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 movementInput;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
         //scoreManager = GameObject.Find("Canvas").GetComponent<ScoreManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Dodge();
@@ -90,45 +89,6 @@ public class PlayerController : MonoBehaviour
 
     private void Dodge()
     {
-
-        // if (Input.GetButtonDown("Jump") && movementInput.x > 0)
-        // {
-        //     transform.Translate(dodgeLength, 1, 0);
-        //     justTeleported = true;
-        // }
-        //
-        // if (Input.GetButtonDown("Jump") && movementInput.x < 0)
-        // {
-        //     transform.Translate(-dodgeLength, 1, 0);
-        //     justTeleported = true;
-        // }
-        //
-        // if (Input.GetButtonDown("Jump") && movementInput.y > 0)
-        // {
-        //     transform.Translate(0, dodgeLength, 0);
-        //     justTeleported = true;
-        // }
-        //
-        // if (Input.GetButtonDown("Jump") && movementInput.y < 0)
-        // {
-        //     transform.Translate(0, -dodgeLength, 0);
-        //     justTeleported = true;
-        // }
-        //
-        // if (justTeleported)
-        // {
-        //     rb2d.gravityScale = 30;
-        //     dodgeTime += Time.deltaTime;
-        // }
-        //
-        // if (dodgeTime > 0.2f)
-        // {
-        //     dodgeTime = 0;
-        //     justTeleported = false;
-        //     rb2d.gravityScale = 0;
-        // }
-        
-
         if (Input.GetButtonDown("Jump"))
         {
             isDodging = true;
@@ -167,7 +127,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Projectile"))
         {
             health--;
-            
+            healthManager.UpdateHealth(health);
+
             if (health <= 0)
             {
                 if (SceneManager.GetActiveScene().name == "SampleScene")

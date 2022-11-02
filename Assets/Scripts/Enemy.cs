@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
 
     private float throwTimer;
     private float throwRate = 4f;
+    private float minThrowRate = 2f;
+    private float maxThrowRate = 4.5f;
     private float gameTimer;
     private float speedUpThrowRate = 4f;
 
@@ -55,7 +57,7 @@ public class Enemy : MonoBehaviour
                 rb2d.velocity = Vector2.zero;
                 Invoke(nameof(StartMoving), 1);
 
-                slipperAmount = Random.Range(1, 4);
+                slipperAmount = Random.Range(1, 6);
 
                 for (int i = 0; i < slipperAmount; i++)
                 {
@@ -64,11 +66,12 @@ public class Enemy : MonoBehaviour
 
                 animator.SetTrigger("isThrowing");
                 throwTimer = 0;
-                throwRate = Random.Range(2.5f, 4.5f);
+                throwRate = Random.Range(minThrowRate, maxThrowRate);
             }
             if (gameTimer >= speedUpThrowRate && throwRate >= 0.3f)
             {
-                throwRate -= 0.05f;
+                minThrowRate -= 0.05f;
+                maxThrowRate -= 0.05f;
                 gameTimer = 0;
             }
             Wobble();
