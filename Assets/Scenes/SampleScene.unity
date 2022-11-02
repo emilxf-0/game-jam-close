@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d129a9f6c62fc478eddb06077d9152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 8676784664969142594, guid: 5b49e63d04c93dd46891b87d2d13c24f, type: 3}
+  projectile: {fileID: 119121469741861485, guid: d2544a4388e143e47bae3bee4ea3babe, type: 3}
 --- !u!114 &255035172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,8 +1331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a55b7fba084a14abe1e125d8e0f646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScript: {fileID: 178445654}
-  sceneHandler: {fileID: 519420033}
+  gameOverScript: {fileID: 0}
+  sceneHandler: {fileID: 0}
   playerSpeed: 0
   startSpeed: 4.52
   dodgeTime: 0

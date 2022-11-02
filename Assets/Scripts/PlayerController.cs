@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private GameOverScript gameOverScript;
@@ -148,12 +148,18 @@ public class PlayerController : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-
-        health--;
-        if (health <= 0)
+        if (collision.gameObject.CompareTag("Projectile"))
         {
-            gameOverScript.GameOver();
-            sceneHandler.GameOver();
+            health--;
+            if (health <= 0)
+            {
+                if (SceneManager.GetActiveScene().name == "SampleScene")
+                {
+                    gameOverScript.GameOver();
+                    sceneHandler.GameOver();
+                }
+
+            }
         }
 
     }
