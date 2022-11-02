@@ -56,7 +56,15 @@ public class Enemy : MonoBehaviour
                 rb2d.velocity = Vector2.zero;
                 Invoke(nameof(StartMoving), 1);
 
-                ThrowSlipper();
+                slipperAmount = Random.Range(1, 6);
+
+                for (int i = 0; i < slipperAmount; i++)
+                {
+                    Instantiate(projectile, transform.position, Quaternion.identity);
+                }
+
+                animator.SetTrigger("isThrowing");
+                throwTimer = 0;
                 throwRate = Random.Range(2.5f, 4.5f);
             }
             if (gameTimer >= speedUpThrowRate && throwRate >= 0.3f)
@@ -66,14 +74,6 @@ public class Enemy : MonoBehaviour
             }
             Wobble();
         }
-        
-
-    }
-    private void ThrowSlipper()
-    {
-        Instantiate(projectile, transform.position, Quaternion.identity);
-        animator.SetTrigger("isThrowing");
-        throwTimer = 0;
     }
     private void StartMoving()
     {

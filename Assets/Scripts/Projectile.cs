@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] Sprite[] spriteArray;
+    [SerializeField] SpriteRenderer spriteRenderer;
     private Rigidbody2D rb2d;
     private Transform target;
 
@@ -13,6 +14,8 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
+
+        spriteRenderer.sprite = spriteArray[Random.Range(0, 3)];
         rb2d = GetComponent<Rigidbody2D>();
         target = GameObject.Find("Player").transform;
 
