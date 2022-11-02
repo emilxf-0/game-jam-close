@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7996076840443652616}
   - component: {fileID: -4563517005259946713}
   - component: {fileID: 7734047726478582788}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Projectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1081751684629287919}
   - component: {fileID: 2402499718096033207}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullseye
   m_TagString: Bullseye
   m_Icon: {fileID: 0}

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Throw : MonoBehaviour
 {
-    [SerializeField] GameObject projectile;
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private Animator animator;
 
     private float throwTimer;
     private float throwRate = 2f;
@@ -21,6 +22,7 @@ public class Throw : MonoBehaviour
         if (throwTimer >= throwRate)
         {
             Instantiate(projectile, transform.position, Quaternion.identity);
+            animator.SetTrigger("isThrowing");
             throwTimer = 0;
         }
         if (gameTimer >= speedUpThrowRate && throwRate >= 0.3f)
