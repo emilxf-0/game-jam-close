@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
     private float gameTimer;
     private float speedUpThrowRate = 4f;
 
-    public float slipperSpread;
     public int slipperAmount;
 
     private bool wobbleRight;
@@ -56,7 +55,7 @@ public class Enemy : MonoBehaviour
                 rb2d.velocity = Vector2.zero;
                 Invoke(nameof(StartMoving), 1);
 
-                slipperAmount = Random.Range(1, 6);
+                slipperAmount = Random.Range(1, 4);
 
                 for (int i = 0; i < slipperAmount; i++)
                 {

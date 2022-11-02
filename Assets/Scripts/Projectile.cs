@@ -11,16 +11,17 @@ public class Projectile : MonoBehaviour
 
     private Vector2 aimDirection;
     public float projectileSpeed = 9f;
+    public float maxSpread = 0.5f;
+
 
     void Start()
     {
-
         spriteRenderer.sprite = spriteArray[Random.Range(0, 3)];
         rb2d = GetComponent<Rigidbody2D>();
         target = GameObject.Find("Player").transform;
 
         transform.up = target.transform.position - transform.position;
-        aimDirection = transform.up;
+        aimDirection = transform.up + new Vector3(Random.Range(-maxSpread, maxSpread), 0, 0);
         rb2d.velocity = aimDirection * projectileSpeed; //move towards player
 
         Destroy(gameObject, 5);
