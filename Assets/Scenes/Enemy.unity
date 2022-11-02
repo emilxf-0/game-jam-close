@@ -606,8 +606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d129a9f6c62fc478eddb06077d9152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 119121469741861485, guid: d2544a4388e143e47bae3bee4ea3babe, type: 3}
-  animator: {fileID: 1345256803}
 --- !u!114 &1345256807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,6 +618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a9b7ba373ce0f4491f0b8883d282b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 119121469741861485, guid: d2544a4388e143e47bae3bee4ea3babe, type: 3}
+  animator: {fileID: 1345256803}
   speed: 5
 --- !u!212 &1345256808
 SpriteRenderer:
