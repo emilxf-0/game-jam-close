@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,16 +8,19 @@ public class SceneHandler : MonoBehaviour
 {
     [SerializeField] private PlayerController playerScript;
     [SerializeField] private Enemy enemyScript;
+
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "SampleScene")
+        if (SceneManager.GetActiveScene().name == "SampleScene"|| SceneManager.GetActiveScene().name == "Enemy")
         {
             playerScript.enabled = false;
             enemyScript.enabled = false;
-            Invoke(nameof(GameStart), 5);
+
+            Invoke(nameof(GameStart), 8);
         }
 
     }
+
     private void GameStart()
     {
         playerScript.enabled = true;
