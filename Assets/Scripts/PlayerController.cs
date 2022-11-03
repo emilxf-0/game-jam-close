@@ -29,14 +29,17 @@ public class PlayerController : MonoBehaviour
     private Vector3 bob;
 
     private Rigidbody2D rb2d;
-    private Animator animator;
+    public Animator animator;
     private Vector2 movementInput;
 
 
     void Start()
     {
+        Debug.Log("sdfsdfsdf");
+        
+        //
         rb2d = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+      //  animator = GetComponent<Animator>();
         playerSpeed = startSpeed;
     }
 
@@ -53,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
         if (movementInput.x != 0 || movementInput.y != 0)
         {
-            MovementAnimation();
+           MovementAnimation();
         }
 
         movementInput.Normalize();
@@ -86,11 +89,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
-                animator.SetTrigger("isDodgingLeft");
+               animator.SetTrigger("isDodgingLeft");
             }
             else
             {
-                animator.SetTrigger("isDodgingRight");
+              animator.SetTrigger("isDodgingRight");
             }
             
             isDodging = true;
