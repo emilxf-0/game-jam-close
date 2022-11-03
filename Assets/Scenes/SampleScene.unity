@@ -1892,7 +1892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverScript: {fileID: 178445654}
   sceneHandler: {fileID: 519420033}
-  enemyScript: {fileID: 0}
+  enemyScript: {fileID: 578082111}
   slipperPoof: {fileID: 2940101717823007764, guid: e78dafb993588e94b8a88e0df0b23817, type: 3}
   playerSpeed: 0
   startSpeed: 8
