@@ -1704,7 +1704,6 @@ MonoBehaviour:
   scoreManager: {fileID: 1451726971}
   healthManager: {fileID: 2127560621}
   animator: {fileID: 1695802807}
-  dodgeText: {fileID: 0}
   slipperPoof: {fileID: 2940101717823007764, guid: e78dafb993588e94b8a88e0df0b23817, type: 3}
 --- !u!4 &819216650
 Transform:
