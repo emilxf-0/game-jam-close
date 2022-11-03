@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: StateDrivenCamera Blends
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: 
-    m_To: 
+  - m_From: Start Dialogue
+    m_To: Follow Camera
     m_Blend:
-      m_Style: 1
-      m_Time: 2
+      m_Style: 4
+      m_Time: 0.5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
