@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private bool justTeleported;
     private bool wobbleRight;
     private float counter;
+    private bool isInvincible = false;
 
     private Vector3 bob;
 
@@ -31,13 +32,13 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D capsuleCollider;
     public Animator animator;
     private Vector2 movementInput;
-    [SerializeField] private GameObject dodgeText;
+    //[SerializeField] private GameObject dodgeText;
     [SerializeField] private GameObject slipperPoof;
 
 
     void Start()
     {
-        dodgeText.SetActive(false);
+        //dodgeText.SetActive(false);
 
         rb2d = GetComponent<Rigidbody2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
@@ -130,19 +131,23 @@ public class PlayerController : MonoBehaviour
         {
             AddScore(100);
             capsuleCollider.enabled = false;
-            dodgeText.SetActive(true);
+           // dodgeText.SetActive(true);
             Invoke(nameof(TurnOffText), 3);
             Debug.Log("hej");
         }
     }
     private void TurnOffText()
     {
-        dodgeText.SetActive(false);
+        //dodgeText.SetActive(false);
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Projectile") && !isDodging)
+        if (collision.gameObject.CompareTag("Projectile") && !isDodging && !isInvincible)
         {
+            isInvincible = true;
+            animator.SetTrigger("isInvincible");
+            Invoke(nameof(SetInvincibleFalse), 1);
+
             var poof = Instantiate(slipperPoof, collision.transform.position, collision.transform.rotation);
             Destroy(poof, 0.5f);
             Destroy(collision.gameObject);
@@ -150,6 +155,10 @@ public class PlayerController : MonoBehaviour
             health--;
             healthManager.UpdateHealth(health);
 
+            if(health == 1)
+            {
+                animator.SetBool("lastLife", true);
+            }
             if (health <= 0)
             {
                 if (SceneManager.GetActiveScene().name == "SampleScene")
@@ -159,6 +168,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void SetInvincibleFalse()
+    {
+        isInvincible = false;
     }
 
     void AddScore(int points)
