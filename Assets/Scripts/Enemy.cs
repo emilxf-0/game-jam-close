@@ -120,11 +120,15 @@ public class Enemy : MonoBehaviour
     {
         moving = false;
         rb2d.velocity = Vector2.zero;
-        Invoke(nameof(StartMoving), 15);
 
         for (int i = 0; i < rageWaveAmount; i++)
         {
             RageWave();
+
+            if (i == rageWaveAmount - 1)
+            {
+                StartMoving();
+            }
         }
 
         Invoke(nameof(DifficultyUp), 10);
