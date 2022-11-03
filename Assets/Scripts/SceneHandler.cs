@@ -8,9 +8,14 @@ public class SceneHandler : MonoBehaviour
 {
     [SerializeField] private PlayerController playerScript;
     [SerializeField] private Enemy enemyScript;
+    [SerializeField] private AudioClip audioClip;
+    
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        
         if (SceneManager.GetActiveScene().name == "SampleScene"|| SceneManager.GetActiveScene().name == "Enemy")
         {
             playerScript.enabled = false;
@@ -34,6 +39,7 @@ public class SceneHandler : MonoBehaviour
 
     public void OnButtonPress(string sceneName)
     {
+        audioSource.PlayOneShot(audioClip, 1);
         SceneManager.LoadScene(sceneName);
     }
     public void Exit()
