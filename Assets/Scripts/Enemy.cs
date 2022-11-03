@@ -36,8 +36,8 @@ public class Enemy : MonoBehaviour
 
     public bool grannyRage = false;
 
-    public int startRage = 0;
-    public int maxRage = 5;
+    public int startRage = 1;
+    public int maxRage = 6;
     public int rageCounter = 0;
 
     void Start()
