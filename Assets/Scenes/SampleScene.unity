@@ -1163,6 +1163,7 @@ MonoBehaviour:
   slipperAmount: 0
   speed: 5
   grannyRage: 0
+  rageCounter: 0
 --- !u!212 &578082112
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1811,6 +1812,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverScript: {fileID: 178445654}
   sceneHandler: {fileID: 519420033}
+  enemyScript: {fileID: 0}
+  slipperPoof: {fileID: 2940101717823007764, guid: e78dafb993588e94b8a88e0df0b23817, type: 3}
   playerSpeed: 0
   startSpeed: 8
   dodgeTime: 0
@@ -1820,7 +1823,6 @@ MonoBehaviour:
   scoreManager: {fileID: 1451726971}
   healthManager: {fileID: 2127560621}
   animator: {fileID: 1695802807}
-  slipperPoof: {fileID: 2940101717823007764, guid: e78dafb993588e94b8a88e0df0b23817, type: 3}
 --- !u!4 &819216650
 Transform:
   m_ObjectHideFlags: 0
