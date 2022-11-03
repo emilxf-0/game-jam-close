@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
@@ -9,13 +10,20 @@ public class SceneHandler : MonoBehaviour
     [SerializeField] private PlayerController playerScript;
     [SerializeField] private Enemy enemyScript;
     [SerializeField] private AudioClip audioClip;
-    
+    [SerializeField] private Canvas tutorialCanvas;
+
     private AudioSource audioSource;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        
+
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            tutorialCanvas.enabled = false;
+        }
+
+
         if (SceneManager.GetActiveScene().name == "SampleScene"|| SceneManager.GetActiveScene().name == "Enemy")
         {
             playerScript.enabled = false;
@@ -23,9 +31,11 @@ public class SceneHandler : MonoBehaviour
 
             Invoke(nameof(GameStart), 8);
         }
-
     }
-
+    public void ShowTutorial()
+    {
+        tutorialCanvas.enabled = true;
+    }
     private void GameStart()
     {
         playerScript.enabled = true;
