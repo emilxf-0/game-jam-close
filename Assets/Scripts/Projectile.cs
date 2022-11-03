@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
 
     private Vector2 aimDirection;
     public float projectileSpeed = 9f;
-    private float maxSpread = 6f;
+    public float maxSpread = 6f;
     private float rotateSpeed;
 
 
@@ -32,7 +32,5 @@ public class Projectile : MonoBehaviour
     private void FixedUpdate()
     {
         transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
-
-        //rb2d.velocity += new Vector2(target.transform.position.x, rb2d.velocity.y) * Time.deltaTime;
     }
 }

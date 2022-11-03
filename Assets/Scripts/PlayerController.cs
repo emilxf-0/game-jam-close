@@ -31,12 +31,14 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D capsuleCollider;
     public Animator animator;
     private Vector2 movementInput;
+    [SerializeField] private GameObject dodgeText;
 
 
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        dodgeText.SetActive(false);
 
+        rb2d = GetComponent<Rigidbody2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         playerSpeed = startSpeed;
     }
@@ -127,9 +129,15 @@ public class PlayerController : MonoBehaviour
         {
             AddScore(100);
             capsuleCollider.enabled = false;
+            dodgeText.SetActive(true);
+            Invoke(nameof(TurnOffText), 3);
+            Debug.Log("hej");
         }
     }
-
+    private void TurnOffText()
+    {
+        dodgeText.SetActive(false);
+    }
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Projectile") && !isDodging)

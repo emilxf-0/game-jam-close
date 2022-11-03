@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     private int direction = 1;
     Vector2 movement;
     private bool moving;
+    public bool grannyRage;
 
     void Start()
     {
@@ -33,6 +34,16 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if (grannyRage)
+        {
+            GrannyRage();
+            projectile.GetComponent<Projectile>().maxSpread = 20f;
+        }
+        else
+        {
+            projectile.GetComponent<Projectile>().maxSpread = 6f;
+        }
+
         if (moving)
         {
             movement = new Vector2(speed * Time.deltaTime, rb2d.velocity.y);
@@ -53,19 +64,8 @@ public class Enemy : MonoBehaviour
 
             if (throwTimer >= throwRate)
             {
-                moving = false;
-                rb2d.velocity = Vector2.zero;
-                Invoke(nameof(StartMoving), 1);
+                ThrowSlipper();
 
-                slipperAmount = 15; //Random.Range(1, 6);
-
-                for (int i = 0; i < slipperAmount; i++)
-                {
-                    Instantiate(projectile, transform.position, Quaternion.identity);
-                }
-                animator.SetTrigger("isThrowing");
-                throwTimer = 0;
-                throwRate = Random.Range(minThrowRate, maxThrowRate);
             }
             if (gameTimer >= speedUpThrowRate && throwRate >= 0.3f)
             {
@@ -76,6 +76,29 @@ public class Enemy : MonoBehaviour
             Wobble();
         }
     }
+
+    private void GrannyRage()
+    {
+        
+    }
+
+    private void ThrowSlipper()
+    {
+        moving = false;
+        rb2d.velocity = Vector2.zero;
+        Invoke(nameof(StartMoving), 1);
+
+        slipperAmount = 15; //Random.Range(1, 6);
+
+        for (int i = 0; i < slipperAmount; i++)
+        {
+            Instantiate(projectile, transform.position, Quaternion.identity);
+        }
+        animator.SetTrigger("isThrowing");
+        throwTimer = 0;
+        throwRate = Random.Range(minThrowRate, maxThrowRate);
+    }
+
     private void StartMoving()
     {
         moving = true;
