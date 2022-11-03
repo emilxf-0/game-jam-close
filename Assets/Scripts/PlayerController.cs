@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     private Vector2 movementInput;
     [SerializeField] private GameObject dodgeText;
+    [SerializeField] private GameObject slipperPoof;
 
 
     void Start()
@@ -142,6 +143,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Projectile") && !isDodging)
         {
+            var poof = Instantiate(slipperPoof, collision.transform.position, collision.transform.rotation);
+            Destroy(poof, 0.5f);
             Destroy(collision.gameObject);
 
             health--;
