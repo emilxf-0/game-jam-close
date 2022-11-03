@@ -16,6 +16,11 @@ public class Enemy : MonoBehaviour
     private float speedUpThrowRate = 4f;
 
     public int slipperAmount;
+    private int minSlipperAmount = 10;
+    private int maxSlipperAmount = 20;
+    private int rageThrowcounter = 3;
+    private float maxSpread;
+    private float rageWaveIntervall = 1.5f;
 
     private bool wobbleRight;
     private float counter;
@@ -38,6 +43,8 @@ public class Enemy : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         ragemeter.SetStartRage(startRage);
         ragemeter.SetMaxRage(maxRage);
+
+        maxSpread = projectile.GetComponent<Projectile>().maxSpread;
     }
 
     void Update()
@@ -62,16 +69,12 @@ public class Enemy : MonoBehaviour
 
             if (throwTimer >= throwRate)
             {
-                slipperAmount = Random.Range(10, 20); //;
+
+                slipperAmount = Random.Range(minSlipperAmount, maxSlipperAmount);
                 ThrowSlipper(slipperAmount);
 
             }
-            if (gameTimer >= speedUpThrowRate && throwRate >= 0.3f)
-            {
-                minThrowRate -= 0.05f;
-                maxThrowRate -= 0.05f;
-                gameTimer = 0;
-            }
+
             Wobble();
         }
 
@@ -85,10 +88,11 @@ public class Enemy : MonoBehaviour
         moving = false;
         rb2d.velocity = Vector2.zero;
         Invoke(nameof(StartMoving), 1);
-        
+
         for (int i = 0; i < slipperAmount; i++)
         {
-            Instantiate(projectile, transform.position, Quaternion.identity);
+            var slipper = Instantiate(projectile, transform.position, Quaternion.identity);
+            slipper.GetComponent<Projectile>().maxSpread = maxSpread;
         }
 
         animator.SetTrigger("isThrowing");
@@ -102,8 +106,8 @@ public class Enemy : MonoBehaviour
         //todo termometer update
         ragemeter.SetRage(rageCounter);
         Debug.Log(rageCounter);
-        
-        if(rageCounter > maxRage)
+
+        if (rageCounter > maxRage)
         {
             GrannyRage();
             rageCounter = 0;
@@ -118,21 +122,39 @@ public class Enemy : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         Invoke(nameof(StartMoving), 15);
 
-        Invoke(nameof(RageThrowSlipper), 2.5f);
-        Invoke(nameof(RageThrowSlipper), 4f);
-        Invoke(nameof(RageThrowSlipper), 5.5f);
+        for (int i = 0; i < rageThrowcounter; i++)
+        {
+            RageWave();
+        }
+
+        Invoke(nameof(DifficultyUp), 10);
 
         animator.SetTrigger("GrannyRageTrigger");
     }
-
+    private void RageWave()
+    {
+        Invoke(nameof(RageThrowSlipper), rageWaveIntervall);
+        rageWaveIntervall += 1.5f;
+    }
     private void RageThrowSlipper()
     {
         slipperAmount = 40;
-        projectile.GetComponent<Projectile>().maxSpread = 15f;
 
         ThrowSlipper(slipperAmount);
+    }
+    private void DifficultyUp()
+    {
+        if (minThrowRate >= 1f)
+        {
+            minThrowRate -= 0.5f;
+        }
+        if (maxThrowRate >= 2f)
+        {
+            maxThrowRate -= 0.5f;
+        }
 
-        projectile.GetComponent<Projectile>().maxSpread = 6f;
+        minSlipperAmount += 5;
+        maxSlipperAmount += 5;
 
     }
 
@@ -140,6 +162,7 @@ public class Enemy : MonoBehaviour
     {
         moving = true;
     }
+
     private void Wobble()
     {
         if (wobbleRight)
