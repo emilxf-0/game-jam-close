@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 bob;
 
     private Rigidbody2D rb2d;
+    private CapsuleCollider2D capsuleCollider;
     public Animator animator;
     private Vector2 movementInput;
 
@@ -35,7 +36,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+<<<<<<< Updated upstream
         //  animator = GetComponent<Animator>();
+=======
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
+      //  animator = GetComponent<Animator>();
+>>>>>>> Stashed changes
         playerSpeed = startSpeed;
     }
 
@@ -105,6 +111,7 @@ public class PlayerController : MonoBehaviour
             isDodging = false;
             dodgeTime = 0f;
             playerSpeed = startSpeed;
+            capsuleCollider.enabled = true;
         }
     }
 
@@ -118,6 +125,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Bullseye") && isDodging)
         {
             AddScore(100);
+            capsuleCollider.enabled = false;
         }
     }
 
