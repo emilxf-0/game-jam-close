@@ -55,6 +55,11 @@ public class PlayerController : MonoBehaviour
         if (movementInput.x != 0 || movementInput.y != 0)
         {
             MovementAnimation();
+            animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
         }
 
         movementInput.Normalize();
