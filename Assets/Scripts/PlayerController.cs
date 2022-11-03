@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SceneHandler sceneHandler;
     [SerializeField] private Enemy enemyScript;
     [SerializeField] private GameObject slipperPoof;
+    [SerializeField] private GameObject dodgePoof;
 
     public float playerSpeed;
     public float startSpeed = 8;
@@ -95,10 +96,15 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
+                var leftPoof = Instantiate(dodgePoof, transform.position, Quaternion.identity);
+                leftPoof.GetComponent<SpriteRenderer>().flipX = false;
+                Destroy(leftPoof, 0.8f);
                 animator.Play("CartwheelingLeft");
             }
             else
             {
+                var rightPoof = Instantiate(dodgePoof, transform.position, Quaternion.identity);
+                Destroy(rightPoof, 0.8f);
                 animator.Play("CartwheelingRight");
             }
 
