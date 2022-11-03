@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private CharacterSounds playerSounds;
     [SerializeField] private CharacterSounds grannySounds;
     [SerializeField] private Transform throwPosition;
+    [SerializeField] private PlayerController playerController;
 
     private float throwTimer;
     private float throwRate = 4f;
@@ -109,7 +110,6 @@ public class Enemy : MonoBehaviour
     {
         playerSounds.audioSource.PlayOneShot(playerSounds.audioLibrary[1]);
         rageCounter++;
-        //todo termometer update
         ragemeter.SetRage(rageCounter);
         Debug.Log(rageCounter);
 
@@ -120,6 +120,7 @@ public class Enemy : MonoBehaviour
             maxRage *= 2;
             ragemeter.SetRage(rageCounter);
             ragemeter.SetMaxRage(maxRage);
+            playerController.bullsEyeScore *= 2;
         }
     }
     private void GrannyRage()

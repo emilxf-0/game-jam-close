@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Enemy enemyScript;
     [SerializeField] private GameObject slipperPoof;
     [SerializeField] private GameObject dodgePoof;
+    [SerializeField] private GameObject compliment;
 
     public float playerSpeed;
     public float startSpeed = 8;
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public float angle = 7;
     private int health = 6;
     private int score;
+    public int bullsEyeScore = 100;
 
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] HealthManager healthManager;
@@ -134,7 +137,10 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Bullseye") && isDodging)
         {
-            AddScore(100);
+            var success = Instantiate(compliment, transform.position, quaternion.identity);
+            success.GetComponent<Rigidbody2D>().gravityScale = 2;
+            AddScore(bullsEyeScore);
+            Destroy(success, 0.5f);
 
             enemyScript.GrannyRageCounter();
 
