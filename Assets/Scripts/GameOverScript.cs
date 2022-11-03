@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameOverScript : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
+    [SerializeField] private CharacterSounds grannySounds;
     void Start()
     {
         panel.SetActive(false);
@@ -19,5 +20,7 @@ public class GameOverScript : MonoBehaviour
     public void GameOver()
     {
         panel.SetActive(true);
+        grannySounds.audioSource.PlayOneShot(grannySounds.audioLibrary[0]);
+
     }
 }

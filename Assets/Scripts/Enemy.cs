@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject projectile;
     [SerializeField] private Animator animator;
     [SerializeField] private Ragemeter ragemeter;
-    [SerializeField] private CharacterSounds characterSounds;
+    [SerializeField] private CharacterSounds playerSounds;
+    [SerializeField] private CharacterSounds grannySounds;
     [SerializeField] private Transform throwPosition;
 
     private float throwTimer;
@@ -91,6 +92,8 @@ public class Enemy : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         Invoke(nameof(StartMoving), 1);
 
+        grannySounds.audioSource.PlayOneShot(grannySounds.audioLibrary[2]);
+
         for (int i = 0; i < slipperAmount; i++)
         {
             var slipper = Instantiate(projectile, throwPosition.position, Quaternion.identity);
@@ -104,7 +107,7 @@ public class Enemy : MonoBehaviour
 
     public void GrannyRageCounter()
     {
-        characterSounds.audioSource.PlayOneShot(characterSounds.audioLibrary[1]);
+        playerSounds.audioSource.PlayOneShot(playerSounds.audioLibrary[1]);
         rageCounter++;
         //todo termometer update
         ragemeter.SetRage(rageCounter);
@@ -123,6 +126,8 @@ public class Enemy : MonoBehaviour
     {
         moving = false;
         rb2d.velocity = Vector2.zero;
+        grannySounds.audioSource.PlayOneShot(grannySounds.audioLibrary[1]);
+
 
         for (int i = 0; i < rageWaveAmount; i++)
         {
