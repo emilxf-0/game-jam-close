@@ -142,7 +142,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 79e5d9ad604022f46b08573d0b6575d4, type: 3}
   - {fileID: 21300000, guid: c00c86712241ea84b9b81d41077cc943, type: 3}
   spriteRenderer: {fileID: 5409012650767847988}
+  slipperPoof: {fileID: 2940101717823007764, guid: 990aa555f13cfb945b26c9579662496a, type: 3}
   projectileSpeed: 5
+  maxSpread: 6
 --- !u!1 &4135204815670610676
 GameObject:
   m_ObjectHideFlags: 0

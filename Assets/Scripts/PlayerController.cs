@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private GameOverScript gameOverScript;
     [SerializeField] private SceneHandler sceneHandler;
+    [SerializeField] private Enemy enemyScript;
+    [SerializeField] private GameObject slipperPoof;
 
     public float playerSpeed;
     public float startSpeed = 8;
@@ -29,11 +31,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 bob;
 
     private Rigidbody2D rb2d;
-    private CapsuleCollider2D capsuleCollider;
     public Animator animator;
     private Vector2 movementInput;
     //[SerializeField] private GameObject dodgeText;
-    [SerializeField] private GameObject slipperPoof;
+    
 
 
     void Start()
@@ -41,7 +42,6 @@ public class PlayerController : MonoBehaviour
         //dodgeText.SetActive(false);
 
         rb2d = GetComponent<Rigidbody2D>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
         playerSpeed = startSpeed;
     }
 
@@ -116,7 +116,6 @@ public class PlayerController : MonoBehaviour
             isDodging = false;
             dodgeTime = 0f;
             playerSpeed = startSpeed;
-            capsuleCollider.enabled = true;
         }
     }
 
@@ -130,8 +129,10 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Bullseye") && isDodging)
         {
             AddScore(100);
-            capsuleCollider.enabled = false;
-           // dodgeText.SetActive(true);
+
+            enemyScript.GrannyRageCounter();
+
+            //dodgeText.SetActive(true);
             Invoke(nameof(TurnOffText), 3);
             Debug.Log("hej");
         }

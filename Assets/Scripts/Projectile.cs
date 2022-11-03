@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] Sprite[] spriteArray;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject slipperPoof;
+
     private Rigidbody2D rb2d;
     private Transform target;
 
@@ -32,5 +34,14 @@ public class Projectile : MonoBehaviour
     private void FixedUpdate()
     {
         transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            var poof = Instantiate(slipperPoof, transform.position, transform.rotation);
+            Destroy(poof, 0.5f);
+            Destroy(this.gameObject);
+        }
     }
 }

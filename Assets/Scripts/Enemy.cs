@@ -24,7 +24,9 @@ public class Enemy : MonoBehaviour
     private int direction = 1;
     Vector2 movement;
     private bool moving;
-    public bool grannyRage;
+
+    public bool grannyRage = false;
+    public int rageCounter = 0;
 
     void Start()
     {
@@ -34,16 +36,6 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (grannyRage)
-        {
-            GrannyRage();
-            projectile.GetComponent<Projectile>().maxSpread = 20f;
-        }
-        else
-        {
-            projectile.GetComponent<Projectile>().maxSpread = 6f;
-        }
-
         if (moving)
         {
             movement = new Vector2(speed * Time.deltaTime, rb2d.velocity.y);
@@ -64,7 +56,8 @@ public class Enemy : MonoBehaviour
 
             if (throwTimer >= throwRate)
             {
-                ThrowSlipper();
+                slipperAmount = Random.Range(10, 20); //;
+                ThrowSlipper(slipperAmount);
 
             }
             if (gameTimer >= speedUpThrowRate && throwRate >= 0.3f)
@@ -75,28 +68,61 @@ public class Enemy : MonoBehaviour
             }
             Wobble();
         }
-    }
 
-    private void GrannyRage()
-    {
-        
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GrannyRageCounter();
+        }
     }
-
-    private void ThrowSlipper()
+    private void ThrowSlipper(int slipperAmount)
     {
         moving = false;
         rb2d.velocity = Vector2.zero;
         Invoke(nameof(StartMoving), 1);
-
-        slipperAmount = 15; //Random.Range(1, 6);
-
+        
         for (int i = 0; i < slipperAmount; i++)
         {
             Instantiate(projectile, transform.position, Quaternion.identity);
         }
+
         animator.SetTrigger("isThrowing");
         throwTimer = 0;
         throwRate = Random.Range(minThrowRate, maxThrowRate);
+    }
+
+    public void GrannyRageCounter()
+    {
+        rageCounter++;
+        //todo termometer update
+        Debug.Log(rageCounter);
+        if(rageCounter >= 5)
+        {
+            rageCounter = 0;
+            GrannyRage();
+        }
+    }
+    private void GrannyRage()
+    {
+        moving = false;
+        rb2d.velocity = Vector2.zero;
+        Invoke(nameof(StartMoving), 15);
+
+        Invoke(nameof(RageThrowSlipper), 2.5f);
+        Invoke(nameof(RageThrowSlipper), 4f);
+        Invoke(nameof(RageThrowSlipper), 5.5f);
+
+        animator.SetTrigger("GrannyRageTrigger");
+    }
+
+    private void RageThrowSlipper()
+    {
+        slipperAmount = 40;
+        projectile.GetComponent<Projectile>().maxSpread = 15f;
+
+        ThrowSlipper(slipperAmount);
+
+        projectile.GetComponent<Projectile>().maxSpread = 6f;
+
     }
 
     private void StartMoving()

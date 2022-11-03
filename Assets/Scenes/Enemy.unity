@@ -509,6 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverScript: {fileID: 0}
   sceneHandler: {fileID: 0}
+  enemyScript: {fileID: 1345256807}
   playerSpeed: 0
   startSpeed: 8
   dodgeTime: 0
@@ -518,7 +519,7 @@ MonoBehaviour:
   scoreManager: {fileID: 0}
   healthManager: {fileID: 0}
   animator: {fileID: 1669794762}
-  dodgeText: {fileID: 775731031}
+  slipperPoof: {fileID: 0}
 --- !u!4 &265561482
 Transform:
   m_ObjectHideFlags: 0
@@ -1164,6 +1165,8 @@ MonoBehaviour:
   animator: {fileID: 1345256803}
   slipperAmount: 0
   speed: 5
+  grannyRage: 0
+  rageCounter: 0
 --- !u!212 &1345256808
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1224,9 +1227,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345256802}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.53, y: 2.23, z: 0}
+  m_LocalPosition: {x: -0, y: 3.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
