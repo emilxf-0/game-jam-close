@@ -95,11 +95,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
-                animator.SetTrigger("isDodgingLeft");
+                animator.Play("CartwheelingLeft");
             }
             else
             {
-                animator.SetTrigger("isDodgingRight");
+                animator.Play("CartwheelingRight");
             }
 
             isDodging = true;
