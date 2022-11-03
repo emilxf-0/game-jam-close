@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Ragemeter ragemeter;
     [SerializeField] private CharacterSounds characterSounds;
+    [SerializeField] private Transform throwPosition;
 
     private float throwTimer;
     private float throwRate = 4f;
@@ -92,7 +93,7 @@ public class Enemy : MonoBehaviour
 
         for (int i = 0; i < slipperAmount; i++)
         {
-            var slipper = Instantiate(projectile, transform.position, Quaternion.identity);
+            var slipper = Instantiate(projectile, throwPosition.position, Quaternion.identity);
             slipper.GetComponent<Projectile>().maxSpread = maxSpread;
         }
 
