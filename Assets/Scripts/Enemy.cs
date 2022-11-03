@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private GameObject projectile;
     [SerializeField] private Animator animator;
+    [SerializeField] private Ragemeter ragemeter;
 
     private float throwTimer;
     private float throwRate = 4f;
@@ -31,6 +32,9 @@ public class Enemy : MonoBehaviour
     private bool moving;
 
     public bool grannyRage = false;
+
+    public int startRage = 0;
+    public int maxRage = 5;
     public int rageCounter = 0;
 
     void Start()
@@ -38,6 +42,8 @@ public class Enemy : MonoBehaviour
         moving = true;
         rb2d = GetComponent<Rigidbody2D>();
         maxSpread = projectile.GetComponent<Projectile>().maxSpread;
+        ragemeter.SetStartRage(startRage);
+        ragemeter.SetMaxRage(maxRage);
     }
 
     void Update()
@@ -94,11 +100,17 @@ public class Enemy : MonoBehaviour
     {
         rageCounter++;
         //todo termometer update
+        ragemeter.SetRage(rageCounter);
         Debug.Log(rageCounter);
         if (rageCounter >= 5)
+        
+        if(rageCounter > maxRage)
         {
-            rageCounter = 0;
             GrannyRage();
+            rageCounter = 0;
+            maxRage *= 2;
+            ragemeter.SetRage(rageCounter);
+            ragemeter.SetMaxRage(maxRage);
         }
     }
     private void GrannyRage()
