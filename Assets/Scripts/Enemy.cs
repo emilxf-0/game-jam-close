@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject projectile;
     [SerializeField] private Animator animator;
     [SerializeField] private Ragemeter ragemeter;
+    [SerializeField] private CharacterSounds characterSounds;
 
     private float throwTimer;
     private float throwRate = 4f;
@@ -102,6 +103,7 @@ public class Enemy : MonoBehaviour
 
     public void GrannyRageCounter()
     {
+        characterSounds.audioSource.PlayOneShot(characterSounds.audioLibrary[1]);
         rageCounter++;
         //todo termometer update
         ragemeter.SetRage(rageCounter);
