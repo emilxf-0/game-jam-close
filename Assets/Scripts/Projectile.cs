@@ -35,11 +35,4 @@ public class Projectile : MonoBehaviour
 
         //rb2d.velocity += new Vector2(target.transform.position.x, rb2d.velocity.y) * Time.deltaTime;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject == target.gameObject)
-        {
-            Destroy(this.gameObject);
-        }
-    }
 }

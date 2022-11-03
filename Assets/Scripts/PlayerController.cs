@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     private int health = 6;
     private int score;
 
-
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] HealthManager healthManager;
 
@@ -37,9 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("sdfsdfsdf");
         
-        //
         rb2d = GetComponent<Rigidbody2D>();
-      //  animator = GetComponent<Animator>();
+        //  animator = GetComponent<Animator>();
         playerSpeed = startSpeed;
     }
 
@@ -56,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
         if (movementInput.x != 0 || movementInput.y != 0)
         {
-           MovementAnimation();
+            MovementAnimation();
         }
 
         movementInput.Normalize();
@@ -65,7 +63,6 @@ public class PlayerController : MonoBehaviour
 
     private void MovementAnimation()
     {
-
         if (wobbleRight)
         {
             transform.eulerAngles = new Vector3(0, 0, -7 * 0.5f);
@@ -89,13 +86,13 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
-               animator.SetTrigger("isDodgingLeft");
+                animator.SetTrigger("isDodgingLeft");
             }
             else
             {
-              animator.SetTrigger("isDodgingRight");
+                animator.SetTrigger("isDodgingRight");
             }
-            
+
             isDodging = true;
             playerSpeed += dodgeSpeed;
         }
@@ -130,6 +127,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Projectile") && !isDodging)
         {
+            Destroy(collision.gameObject);
+
             health--;
             healthManager.UpdateHealth(health);
 
@@ -142,7 +141,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
     }
 
     void AddScore(int points)
@@ -150,6 +148,4 @@ public class PlayerController : MonoBehaviour
         score += points;
         scoreManager.UpdateScore(score);
     }
-
-
 }
