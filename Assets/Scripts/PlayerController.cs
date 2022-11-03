@@ -34,8 +34,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("sdfsdfsdf");
-        
         rb2d = GetComponent<Rigidbody2D>();
         //  animator = GetComponent<Animator>();
         playerSpeed = startSpeed;
@@ -128,7 +126,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Projectile") && !isDodging)
         {
             Destroy(collision.gameObject);
-
+            
             health--;
             healthManager.UpdateHealth(health);
 
