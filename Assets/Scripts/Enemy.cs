@@ -16,6 +16,11 @@ public class Enemy : MonoBehaviour
     private float speedUpThrowRate = 4f;
 
     public int slipperAmount;
+    private int minSlipperAmount = 10;
+    private int maxSlipperAmount = 20;
+    private int rageThrowcounter = 0;
+
+    public float maxSpread, rageMaxSpread, oldMaxSpread;
 
     private bool wobbleRight;
     private float counter;
@@ -36,6 +41,7 @@ public class Enemy : MonoBehaviour
     {
         moving = true;
         rb2d = GetComponent<Rigidbody2D>();
+        maxSpread = projectile.GetComponent<Projectile>().maxSpread;
         ragemeter.SetStartRage(startRage);
         ragemeter.SetMaxRage(maxRage);
     }
@@ -58,20 +64,13 @@ public class Enemy : MonoBehaviour
             }
 
             throwTimer += Time.deltaTime;
-            gameTimer += Time.deltaTime;
 
             if (throwTimer >= throwRate)
             {
-                slipperAmount = Random.Range(10, 20); //;
+                slipperAmount = Random.Range(minSlipperAmount, maxSlipperAmount);
                 ThrowSlipper(slipperAmount);
+            }
 
-            }
-            if (gameTimer >= speedUpThrowRate && throwRate >= 0.3f)
-            {
-                minThrowRate -= 0.05f;
-                maxThrowRate -= 0.05f;
-                gameTimer = 0;
-            }
             Wobble();
         }
 
@@ -85,10 +84,11 @@ public class Enemy : MonoBehaviour
         moving = false;
         rb2d.velocity = Vector2.zero;
         Invoke(nameof(StartMoving), 1);
-        
+
         for (int i = 0; i < slipperAmount; i++)
         {
-            Instantiate(projectile, transform.position, Quaternion.identity);
+            var slipper = Instantiate(projectile, transform.position, Quaternion.identity);
+            slipper.GetComponent<Projectile>().maxSpread = maxSpread;
         }
 
         animator.SetTrigger("isThrowing");
@@ -102,6 +102,7 @@ public class Enemy : MonoBehaviour
         //todo termometer update
         ragemeter.SetRage(rageCounter);
         Debug.Log(rageCounter);
+        if (rageCounter >= 5)
         
         if(rageCounter > maxRage)
         {
@@ -118,23 +119,59 @@ public class Enemy : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         Invoke(nameof(StartMoving), 15);
 
-        Invoke(nameof(RageThrowSlipper), 2.5f);
-        Invoke(nameof(RageThrowSlipper), 4f);
-        Invoke(nameof(RageThrowSlipper), 5.5f);
-
         animator.SetTrigger("GrannyRageTrigger");
-    }
 
+        oldMaxSpread = maxSpread;
+        Debug.Log("oldmax " + oldMaxSpread);
+        Debug.Log("max " + maxSpread);
+
+        Invoke(nameof(RageThrowSlipper), 2f);
+        Invoke(nameof(RageThrowSlipper), 3.5f);
+        Invoke(nameof(RageThrowSlipper), 5f);
+
+        Invoke(nameof(DifficultyUp), 10);
+
+
+    }
     private void RageThrowSlipper()
     {
+
         slipperAmount = 40;
-        projectile.GetComponent<Projectile>().maxSpread = 15f;
+        maxSpread = 30f;
+        Debug.Log("max2 " + maxSpread);
 
         ThrowSlipper(slipperAmount);
 
-        projectile.GetComponent<Projectile>().maxSpread = 6f;
-
+        rageThrowcounter++;
+        Debug.Log("counter " + rageThrowcounter);
+        if (rageThrowcounter == 3)
+        {
+            rageThrowcounter = 0;
+            maxSpread = oldMaxSpread;
+            Debug.Log("max3 " + maxSpread);
+        }
     }
+    private void DifficultyUp()
+    {
+        if (minThrowRate >= 1f)
+        {
+            minThrowRate -= 0.5f;
+        }
+        if (maxThrowRate >= 2f)
+        {
+            maxThrowRate -= 0.5f;
+        }
+
+        minSlipperAmount += 5;
+        maxSlipperAmount += 5;
+
+        if (maxSpread <= 40)
+        {
+            maxSpread += 6;
+        }
+    }
+
+
 
     private void StartMoving()
     {
