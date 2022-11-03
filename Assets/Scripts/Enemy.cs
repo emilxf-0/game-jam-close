@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     public int slipperAmount;
     private int minSlipperAmount = 10;
     private int maxSlipperAmount = 20;
-    private int rageThrowcounter = 3;
+    private int rageWaveAmount = 3;
     private float maxSpread;
     private float rageWaveIntervall = 1.5f;
 
@@ -120,11 +120,15 @@ public class Enemy : MonoBehaviour
     {
         moving = false;
         rb2d.velocity = Vector2.zero;
-        Invoke(nameof(StartMoving), 15);
 
-        for (int i = 0; i < rageThrowcounter; i++)
+        for (int i = 0; i < rageWaveAmount; i++)
         {
             RageWave();
+
+            if (i == rageWaveAmount - 1)
+            {
+                StartMoving();
+            }
         }
 
         Invoke(nameof(DifficultyUp), 10);
@@ -156,6 +160,7 @@ public class Enemy : MonoBehaviour
         minSlipperAmount += 5;
         maxSlipperAmount += 5;
 
+        rageWaveAmount++;
     }
 
     private void StartMoving()
